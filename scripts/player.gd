@@ -17,6 +17,8 @@ var input: Vector2
 var last_input_direction: Vector2 = Vector2.RIGHT # Default to facing right
 var snap_angles: Array[float]     = [45, 135, 225, 315] # These correspond to NE, SE, SW, and NW
 var directions: Array[String]     = [ "se", "sw", "nw", "ne" ]
+var direction_to_hand: Vector2
+
 
 func get_input() -> Vector2:
 	input.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -53,14 +55,19 @@ func _process(delta: float) -> void:
 	# Move the character based on input
 	move_and_slide()
 
+	direction_to_hand = (hand.global_position - global_position).normalized()
+
+	if Input.is_action_just_pressed("attack"):
+		attack()
+
 	# Update the mouse cursor and hand positions
 	update_mouse_cursor()
 	if is_sprinting and animation_player.current_animation != "sprinting" and velocity.length() > 0.5:
 		animation_player.queue("sprinting")
 	elif animation_player.current_animation != "sprinting":
 		var new_target_hand_position = calculate_hand_position()
+		rotate_tool()
 		hand.position = lerp(hand.position, new_target_hand_position, HAND_LERP_SPEED * delta)
-
 
 
 func update_sprite_flip(is_sprinting: bool) -> void:
@@ -68,17 +75,15 @@ func update_sprite_flip(is_sprinting: bool) -> void:
 		if last_input_direction.x < 0:
 			animated_sprite.flip_h = true
 			if animation_player.current_animation == "sprinting":
-				hand.get_node("ToolSprite").z_index = 1  
+				hand.get_node("ToolSprite").z_index = 1
 				hand.get_node("ToolSprite").flip_h = true
 		else:
 			animated_sprite.flip_h = false
 			if animation_player.current_animation == "sprinting":
-				hand.get_node("ToolSprite").z_index = 1  
+				hand.get_node("ToolSprite").z_index = 1
 				hand.get_node("ToolSprite").flip_h = false
 	else:
-		# Determine flip based on hand position
-		var direction_to_hand = (hand.global_position - global_position).normalized()
-		var angle             = rad_to_deg(direction_to_hand.angle())
+		var angle = rad_to_deg(direction_to_hand.angle())
 		if angle < 0:
 			angle += 360
 
@@ -110,6 +115,30 @@ func play_animations() -> void:
 		animated_sprite.play("walk")
 
 
+func attack():
+	# Calculate the direction to the hand (or mouse) relative to the player
+	var direction_to_hand = (hand.global_position - global_position).normalized()
+
+	# Calculate the angle of the direction vector (from 0 to 360 degrees)
+	var angle = rad_to_deg(direction_to_hand.angle())
+	if angle < 0:
+		angle += 360
+
+	# Define angle ranges for each direction (up, down, left, right)
+	if angle >= 225 and angle < 315:
+		# Up attack
+		animation_player.play("swing_attack_up")
+	elif angle >= 135 and angle < 225:
+		# Left attack
+		animation_player.play("swing_attack_left")
+	elif angle >= 45 and angle < 135:
+		# Down attack
+		animation_player.play("swing_attack_down")
+	else:
+		# Right attack (covers 315-360 and 0-45 degrees)
+		animation_player.play("swing_attack_right")
+
+
 func update_mouse_cursor() -> void:
 	var mouse_position_relative_to_player = get_global_mouse_position() - global_position
 	mouse_cursor.position = mouse_position_relative_to_player
@@ -125,8 +154,6 @@ func calculate_hand_position() -> Vector2:
 
 	# Get the nearest angle index
 	var nearest_angle_index = get_nearest_angle_index(angle)
-
-	rotate_tool(nearest_angle_index)
 
 	# Snap the angle to the nearest of the snap_angles
 	var closest_angle = snap_angles[nearest_angle_index]
@@ -161,9 +188,23 @@ func get_direction_from_index(index: int) -> String:
 	return ""
 
 
-func rotate_tool(nearest_angle_index: int) -> void:
+func rotate_tool() -> void:
+	var angle = rad_to_deg(direction_to_hand.angle())
+	if angle < 0:
+		angle += 360
+
+	var nearest_angle_index = get_nearest_angle_index(angle)
 	if TOOL_RESOURCE and TOOL_RESOURCE.tool_sprite_attributes.size() > 0:
 		var tool_sprite_attributes: ToolSpriteAttributes = TOOL_RESOURCE.tool_sprite_attributes[nearest_angle_index]
 		hand.get_node("ToolSprite").rotation = tool_sprite_attributes.rotation
 		hand.get_node("ToolSprite").flip_h = tool_sprite_attributes.flip_h
 		hand.get_node("ToolSprite").flip_v = tool_sprite_attributes.flip_v
+	
+	hand.rotation = 0 
+
+
+func _on_animation_player_animation_finished(anim_name:StringName) -> void:
+	if anim_name.begins_with("swing_attack"):
+		print_debug("swing attack finished")
+		rotate_tool()
+		
