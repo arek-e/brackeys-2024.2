@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqlx0n4p1klpy"]
+
+[ext_resource type="PackedScene" uid="uid://e8in385n3g83" path="res://scenes/world_clock.tscn" id="1_7ig41"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(4.52, 0.92)
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="world_clock_control" parent="HBoxContainer" instance=ExtResource("1_7ig41")]
+layout_mode = 2
+size_flags_horizontal = 3
