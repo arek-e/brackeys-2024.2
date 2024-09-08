@@ -1,10 +1,13 @@
 extends CharacterBody2D
 
+
+@export var SPEED: float = 150.0
+@export var SPRINT_SPEED: float = 300.0
+@export var ACCELERATION: float = 2.0
+@export var BREAK_FORCE: float = 5.0
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-const SPEED = 300.0
-const ACCELERATION = 2.0
-const BREAK_FORCE = 5.0
 
 var input: Vector2
 var last_input_direction: Vector2 = Vector2.RIGHT # Default to facing right
@@ -17,15 +20,20 @@ func get_input() -> Vector2:
 func _process(delta: float) -> void:
 	var player_input: Vector2 = get_input()
 
+	# Determine the speed based on whether the sprint button is pressed
+	var current_speed = SPEED
+	if Input.is_action_pressed("sprint"):
+		current_speed = SPRINT_SPEED
+
 	# If player gives input, update the last input direction
 	if player_input.length() > 0:
 		last_input_direction = player_input
-	
-	velocity = lerp(velocity, player_input * SPEED, ACCELERATION * delta)
-	
+
+	# Adjust velocity based on the current speed
+	velocity = lerp(velocity, player_input * current_speed, ACCELERATION * delta)
+
 	# If there is no input, break the velocity fast
 	if player_input.length() == 0:
-		# Deaccelerate
 		velocity = lerp(velocity, Vector2.ZERO, BREAK_FORCE * delta)
 
 	# Flip the sprite based on the last non-zero input direction
@@ -33,15 +41,13 @@ func _process(delta: float) -> void:
 		animated_sprite.flip_h = true
 	else:
 		animated_sprite.flip_h = false
-	
-	# If the player velocity is zero, play the idle animation
+
+	# Play animations based on the current speed and velocity
 	if velocity.length() < 0.1 or player_input.length() == 0:
 		animated_sprite.play("idle")
-	elif velocity.length() > 0:
-		animated_sprite.play("walk")
-	elif velocity.length() > 0.5:
+	elif Input.is_action_pressed("sprint") and velocity.length() > 0.1:
 		animated_sprite.play("run")
-
-
+	else:
+		animated_sprite.play("walk")
 
 	move_and_slide()
