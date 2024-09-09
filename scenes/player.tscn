@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bw1exsjdhgu1q"]
+[gd_scene load_steps=44 format=3 uid="uid://bw1exsjdhgu1q"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_gif6u"]
 [ext_resource type="Texture2D" uid="uid://qlo0k2w774hq" path="res://assets/Sunnyside World/Characters/Human/IDLE/base_idle_strip9.png" id="1_ngy66"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bj3jplgtynb" path="res://assets/Sunnyside World/Characters/Human/RUN/base_run_strip8.png" id="2_mse4e"]
 [ext_resource type="Texture2D" uid="uid://byb21ijheurg6" path="res://assets/Sunnyside World/Characters/Human/WALKING/base_walk_strip8.png" id="3_uymua"]
 [ext_resource type="Texture2D" uid="uid://mbgn6ofykyvm" path="res://assets/Pixel Weapons/Axe.png" id="5_pt4nw"]
+[ext_resource type="Texture2D" uid="uid://pjyouy2itdan" path="res://assets/Sunnyside World/UI/arrow_up.png" id="7_l4mvm"]
+[ext_resource type="Texture2D" uid="uid://3bjw6cuc1p4t" path="res://assets/Sunnyside World/UI/cursor_03.png" id="7_tyyev"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xq4pq"]
 atlas = ExtResource("1_ngy66")
@@ -204,87 +206,30 @@ animations = [{
 radius = 5.0
 height = 16.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uby41"]
+radius = 2.0
+
 [sub_resource type="Animation" id="Animation_dnxa0"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hand:position")
+tracks/0/path = NodePath("Hand/ToolSprite:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3, 4)]
+"update": 1,
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hand:rotation")
+tracks/1/path = NodePath("Hand/ToolSprite:flip_v")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Hand/ToolSprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hand/ToolSprite:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Hand:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Hand/ToolSprite:flip_h")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Hand/ToolSprite:flip_v")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -330,6 +275,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/ToolSprite:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_yo6ui"]
 resource_name = "swing_attack_down"
@@ -345,7 +302,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(7, 7), Vector2(7, 7), Vector2(7, 7), Vector2(0, 14), Vector2(-8, 7), Vector2(-8, 7)]
+"values": [Vector2(4, 7), Vector2(4, 7), Vector2(4, 7), Vector2(0, 14), Vector2(-4, 7), Vector2(-4, 7)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -362,43 +319,32 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Hand/ToolSprite:position")
+tracks/2/path = NodePath("Hand:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0)]
+"values": [Vector2(1, 1), Vector2(1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Hand/ToolSprite:rotation")
+tracks/3/path = NodePath("Hand/ToolSprite:z_index")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Hand:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_1pyei"]
 resource_name = "swing_attack_left"
 length = 0.5
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -406,10 +352,10 @@ tracks/0/path = NodePath("Hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0001, 0.0666667, 0.166667, 0.266667, 0.466667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-3, 4), Vector2(3, 4), Vector2(-7, -10), Vector2(-6, -11), Vector2(-18, 0), Vector2(-6, 8), Vector2(-3, 4)]
+"values": [Vector2(-4, -7), Vector2(-4, -7), Vector2(-4, -7), Vector2(-10, 0), Vector2(-4, 7), Vector2(-4, 7)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -418,46 +364,46 @@ tracks/1/path = NodePath("Hand:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.266667, 0.466667, 0.5),
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 1.22173, 1.91986, 0.0, -1.22173, -1.0472]
+"values": [-2.35619, -2.18166, -2.00713, -3.14159, -3.92699, -4.10152]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Hand/ToolSprite:position")
+tracks/2/path = NodePath("Hand/ToolSprite:z_index")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Hand/ToolSprite:rotation")
+tracks/3/path = NodePath("Hand/ToolSprite:flip_h")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Hand:scale")
+tracks/4/path = NodePath("Hand/ToolSprite:flip_v")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1, 1)]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_td3yj"]
@@ -470,10 +416,10 @@ tracks/0/path = NodePath("Hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0001, 0.0666667, 0.166667, 0.266667, 0.466667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(3, 4), Vector2(3, 4), Vector2(7, -10), Vector2(6, -11), Vector2(18, 0), Vector2(6, 8), Vector2(3, 4)]
+"values": [Vector2(4, -7), Vector2(4, -7), Vector2(4, -7), Vector2(10, 0), Vector2(4, 7), Vector2(4, 7)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -482,46 +428,22 @@ tracks/1/path = NodePath("Hand:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.266667, 0.466667, 0.5),
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -1.22173, -1.91986, 0.0, 1.22173, 1.0472]
+"values": [-1.5708, -1.74533, -1.91986, 0.0, 0.785398, 1.13446]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Hand/ToolSprite:position")
+tracks/2/path = NodePath("Hand/ToolSprite:z_index")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hand/ToolSprite:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Hand:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"update": 1,
+"values": [1, 1]
 }
 
 [sub_resource type="Animation" id="Animation_s4v1u"]
@@ -535,10 +457,10 @@ tracks/0/path = NodePath("Hand:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.06, 0.166667, 0.25, 0.41, 0.5),
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-7, -7), Vector2(-7, -7), Vector2(-7, -7), Vector2(0, -14), Vector2(-8, 7), Vector2(-8, 7)]
+"values": [Vector2(-4, -7), Vector2(-4, -7), Vector2(-4, -7), Vector2(0, -14), Vector2(4, -7), Vector2(4, -7)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -550,67 +472,43 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.06, 0.25, 0.41, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [3.14159, 2.96706, 4.71239, 2.35619, 2.70526]
+"values": [3.14159, 2.96706, 4.71239, 5.49779, 5.84685]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Hand/ToolSprite:position")
+tracks/2/path = NodePath("Hand/ToolSprite:z_index")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Hand/ToolSprite:rotation")
+tracks/3/path = NodePath("Hand/ToolSprite:flip_h")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Hand:scale")
+tracks/4/path = NodePath("Hand/ToolSprite:flip_v")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Hand/ToolSprite:flip_h")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Hand/ToolSprite:flip_v")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r4yjx"]
@@ -626,12 +524,6 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_gif6u")
 TOOL_RESOURCE = ExtResource("2_h2x85")
-SPEED = null
-SPRINT_SPEED = null
-ACCELERATION = null
-BREAK_FORCE = null
-HAND_RADIUS = null
-HAND_LERP_SPEED = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_y15en")
@@ -643,13 +535,36 @@ position = Vector2(1, -1)
 shape = SubResource("CapsuleShape2D_ypc0u")
 
 [node name="Hand" type="Node2D" parent="."]
-position = Vector2(3, 4)
+position = Vector2(-4, -7)
+rotation = 3.14159
 
 [node name="ToolSprite" type="Sprite2D" parent="Hand"]
+z_index = -1
+position = Vector2(5, 0)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_pt4nw")
 
+[node name="HandSprite" type="Sprite2D" parent="Hand"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Hand"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/StaticBody2D"]
+shape = SubResource("CircleShape2D_uby41")
+debug_color = Color(0.984836, 0, 0.339709, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="Hand"]
+z_index = 5
+rotation = 1.5708
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_l4mvm")
+
 [node name="MouseCursor" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="MouseCursor"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_tyyev")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

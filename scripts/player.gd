@@ -19,6 +19,8 @@ var snap_angles: Array[float]     = [45, 135, 225, 315] # These correspond to NE
 var directions: Array[String]     = [ "se", "sw", "nw", "ne" ]
 var direction_to_hand: Vector2
 
+var is_attacking = false
+
 
 func get_input() -> Vector2:
 	input.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -66,8 +68,8 @@ func _process(delta: float) -> void:
 		animation_player.queue("sprinting")
 	elif animation_player.current_animation != "sprinting":
 		var new_target_hand_position = calculate_hand_position()
-		rotate_tool()
 		hand.position = lerp(hand.position, new_target_hand_position, HAND_LERP_SPEED * delta)
+		rotate_tool()
 
 
 func update_sprite_flip(is_sprinting: bool) -> void:
@@ -75,12 +77,10 @@ func update_sprite_flip(is_sprinting: bool) -> void:
 		if last_input_direction.x < 0:
 			animated_sprite.flip_h = true
 			if animation_player.current_animation == "sprinting":
-				hand.get_node("ToolSprite").z_index = 1
 				hand.get_node("ToolSprite").flip_h = true
 		else:
 			animated_sprite.flip_h = false
 			if animation_player.current_animation == "sprinting":
-				hand.get_node("ToolSprite").z_index = 1
 				hand.get_node("ToolSprite").flip_h = false
 	else:
 		var angle = rad_to_deg(direction_to_hand.angle())
@@ -116,27 +116,21 @@ func play_animations() -> void:
 
 
 func attack():
-	# Calculate the direction to the hand (or mouse) relative to the player
-	var direction_to_hand = (hand.global_position - global_position).normalized()
+	# Get the mouse direction relative to the player
+	var mouse_direction = get_mouse_direction()
 
-	# Calculate the angle of the direction vector (from 0 to 360 degrees)
-	var angle = rad_to_deg(direction_to_hand.angle())
-	if angle < 0:
-		angle += 360
+	is_attacking = true
 
-	# Define angle ranges for each direction (up, down, left, right)
-	if angle >= 225 and angle < 315:
-		# Up attack
-		animation_player.play("swing_attack_up")
-	elif angle >= 135 and angle < 225:
-		# Left attack
-		animation_player.play("swing_attack_left")
-	elif angle >= 45 and angle < 135:
-		# Down attack
-		animation_player.play("swing_attack_down")
-	else:
-		# Right attack (covers 315-360 and 0-45 degrees)
-		animation_player.play("swing_attack_right")
+	# Play the appropriate attack animation based on the mouse direction
+	match mouse_direction:
+		"up":
+			animation_player.play("swing_attack_up")
+		"left":
+			animation_player.play("swing_attack_left")
+		"down":
+			animation_player.play("swing_attack_down")
+		"right":
+			animation_player.play("swing_attack_right")
 
 
 func update_mouse_cursor() -> void:
@@ -189,6 +183,9 @@ func get_direction_from_index(index: int) -> String:
 
 
 func rotate_tool() -> void:
+	if is_attacking:
+		return
+		
 	var angle = rad_to_deg(direction_to_hand.angle())
 	if angle < 0:
 		angle += 360
@@ -196,15 +193,31 @@ func rotate_tool() -> void:
 	var nearest_angle_index = get_nearest_angle_index(angle)
 	if TOOL_RESOURCE and TOOL_RESOURCE.tool_sprite_attributes.size() > 0:
 		var tool_sprite_attributes: ToolSpriteAttributes = TOOL_RESOURCE.tool_sprite_attributes[nearest_angle_index]
-		hand.get_node("ToolSprite").rotation = tool_sprite_attributes.rotation
+		hand.global_rotation_degrees = tool_sprite_attributes.rotation
 		hand.get_node("ToolSprite").flip_h = tool_sprite_attributes.flip_h
 		hand.get_node("ToolSprite").flip_v = tool_sprite_attributes.flip_v
-	
-	hand.rotation = 0 
 
+func get_mouse_direction() -> String:
+	# Calculate the direction vector from the player to the mouse
+	var direction_to_mouse = (get_global_mouse_position() - global_position).normalized()
+
+	# Calculate the angle of the direction vector in degrees (0-360)
+	var angle = rad_to_deg(direction_to_mouse.angle())
+	if angle < 0:
+		angle += 360
+
+	# Define angle ranges for each direction and return corresponding string
+	if angle >= 45 and angle < 135:
+		return "down"
+	elif angle >= 135 and angle < 225:
+		return "left"
+	elif angle >= 225 and angle < 315:
+		return "up"
+	else:
+		return "right"
 
 func _on_animation_player_animation_finished(anim_name:StringName) -> void:
 	if anim_name.begins_with("swing_attack"):
-		print_debug("swing attack finished")
-		rotate_tool()
+		print_debug("swing attack complete")
+		is_attacking = false
 		
