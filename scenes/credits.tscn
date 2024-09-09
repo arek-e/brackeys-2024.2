@@ -1,0 +1,110 @@
+[gd_scene load_steps=9 format=3 uid="uid://bsod0gf3qs7og"]
+
+[ext_resource type="Script" path="res://scripts/credits.gd" id="1_11cjh"]
+[ext_resource type="Texture2D" uid="uid://bswhrkypy0q1l" path="res://assets/creator_profiles/git_anton.png" id="2_gjgl1"]
+[ext_resource type="Texture2D" uid="uid://d3s7txve2mlnu" path="res://assets/creator_profiles/git_alex.png" id="3_mcrvj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_137ya"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hr0do"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o1bv2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0pfg4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6x7i"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_11cjh")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -41.0
+offset_right = 55.0
+offset_bottom = -1.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_137ya")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hr0do")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_o1bv2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0pfg4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_e6x7i")
+text = "Back"
+
+[node name="avatar_1" type="Sprite2D" parent="."]
+position = Vector2(126, 131)
+scale = Vector2(0.205, 0.205)
+texture = ExtResource("2_gjgl1")
+
+[node name="label_1" type="Label" parent="."]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 87.0
+offset_right = 620.0
+offset_bottom = 169.0
+theme_override_font_sizes/font_size = 22
+text = "Anton 	    Lindén
+https://github.com/anton-linden"
+vertical_alignment = 1
+
+[node name="avatar_2" type="Sprite2D" parent="."]
+position = Vector2(127, 234)
+scale = Vector2(0.205435, 0.205435)
+texture = ExtResource("3_mcrvj")
+
+[node name="label_2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 193.0
+offset_top = 194.0
+offset_right = 617.0
+offset_bottom = 276.0
+theme_override_font_sizes/font_size = 22
+text = "Alexander     Eklund
+https://github.com/arek-e"
+vertical_alignment = 1
+
+[node name="avatar_3" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(127, 340)
+scale = Vector2(0.205, 0.205)
+texture = ExtResource("3_mcrvj")
+
+[node name="label_3" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 191.0
+offset_top = 297.0
+offset_right = 615.0
+offset_bottom = 379.0
+theme_override_font_sizes/font_size = 22
+text = "Alexander     Eklund
+https://github.com/arek-e"
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.259403, 0.188392, 0.135481, 1)
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

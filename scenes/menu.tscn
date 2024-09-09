@@ -41,7 +41,6 @@ text = "Start"
 alignment = 0
 
 [node name="CreditsButton" type="Button" parent="MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 22
