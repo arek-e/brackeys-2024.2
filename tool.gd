@@ -13,7 +13,8 @@ var attack_damage: int
 
 func _ready() -> void:
 	load_tool()
-	attack_component.connect("has_attacked", _on_attack)
+	if attack_component:
+		attack_component.connect("has_attacked", _on_attack)
 
 	
 func _on_attack(collision_enabled: bool) -> void:
