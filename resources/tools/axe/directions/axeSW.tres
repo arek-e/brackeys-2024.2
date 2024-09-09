@@ -6,4 +6,4 @@
 script = ExtResource("1_17uet")
 rotation = 135.0
 flip_h = false
-flip_v = true
+flip_v = false

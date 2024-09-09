@@ -1,0 +1,21 @@
+class_name HurtboxComponent
+extends Area2D
+
+signal hit_enemy
+
+@onready var tool: Tool = get_parent()
+
+func _ready() -> void:
+	area_entered.connect(on_area_entered)
+
+
+func on_area_entered(area: Area2D):
+	print(tool.attack_damage)
+	if area is HitboxComponent:
+		var attack := Attack.new()
+
+		attack.damage = tool.attack_damage
+
+		area.damage(attack)
+
+		hit_enemy.emit()

@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 @export var TOOL_RESOURCE: ToolResource
@@ -77,11 +78,11 @@ func update_sprite_flip(is_sprinting: bool) -> void:
 		if last_input_direction.x < 0:
 			animated_sprite.flip_h = true
 			if animation_player.current_animation == "sprinting":
-				hand.get_node("ToolSprite").flip_h = true
+				hand.get_node("Tool").get_node("ToolSprite").flip_h = true
 		else:
 			animated_sprite.flip_h = false
 			if animation_player.current_animation == "sprinting":
-				hand.get_node("ToolSprite").flip_h = false
+				hand.get_node("Tool").get_node("ToolSprite").flip_h = false
 	else:
 		var angle = rad_to_deg(direction_to_hand.angle())
 		if angle < 0:
@@ -101,9 +102,9 @@ func adjust_tool_z_index(nearest_angle_index: float) -> void:
 	# Set the z_index to a lower value (behind player) if angle is in the north range (315° to 45°)
 	var direction_string = get_direction_from_index(nearest_angle_index)
 	if  direction_string == "nw" or direction_string == "ne":
-		hand.get_node("ToolSprite").z_index = -1  # Behind the player
+		hand.get_node("Tool").get_node("ToolSprite").z_index = -1  # Behind the player
 	else:
-		hand.get_node("ToolSprite").z_index = 1  # In front of the player		
+		hand.get_node("Tool").get_node("ToolSprite").z_index = 1  # In front of the player		
 
 
 func play_animations() -> void:
@@ -194,8 +195,8 @@ func rotate_tool() -> void:
 	if TOOL_RESOURCE and TOOL_RESOURCE.tool_sprite_attributes.size() > 0:
 		var tool_sprite_attributes: ToolSpriteAttributes = TOOL_RESOURCE.tool_sprite_attributes[nearest_angle_index]
 		hand.global_rotation_degrees = tool_sprite_attributes.rotation
-		hand.get_node("ToolSprite").flip_h = tool_sprite_attributes.flip_h
-		hand.get_node("ToolSprite").flip_v = tool_sprite_attributes.flip_v
+		hand.get_node("Tool").get_node("ToolSprite").flip_h = tool_sprite_attributes.flip_h
+		hand.get_node("Tool").get_node("ToolSprite").flip_v = tool_sprite_attributes.flip_v
 
 func get_mouse_direction() -> String:
 	# Calculate the direction vector from the player to the mouse
@@ -218,6 +219,5 @@ func get_mouse_direction() -> String:
 
 func _on_animation_player_animation_finished(anim_name:StringName) -> void:
 	if anim_name.begins_with("swing_attack"):
-		print_debug("swing attack complete")
 		is_attacking = false
 		

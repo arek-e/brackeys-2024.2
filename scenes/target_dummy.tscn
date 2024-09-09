@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://t6lf8gpo5apj"]
+
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="1_540jg"]
+[ext_resource type="Texture2D" uid="uid://cegnwru1onswk" path="res://assets/Sunnyside World/Characters/Goblin/PNG/spr_idle_strip9.png" id="2_7qkj3"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="2_eidqs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_af7fw"]
+radius = 8.0
+height = 18.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ip7em"]
+atlas = ExtResource("2_7qkj3")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n4t6"]
+atlas = ExtResource("2_7qkj3")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1r7o"]
+atlas = ExtResource("2_7qkj3")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbmpp"]
+atlas = ExtResource("2_7qkj3")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8un7"]
+atlas = ExtResource("2_7qkj3")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8q5s"]
+atlas = ExtResource("2_7qkj3")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_banlf"]
+atlas = ExtResource("2_7qkj3")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c35sb"]
+atlas = ExtResource("2_7qkj3")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_miwq3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ip7em")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n4t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1r7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbmpp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8un7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8q5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_banlf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c35sb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="TargetDummy" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_af7fw")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("1_540jg")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("2_eidqs")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape2D_af7fw")
+debug_color = Color(0.984091, 0, 0.346881, 0.42)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(11.049, 1.658, 0, 1)
+sprite_frames = SubResource("SpriteFrames_miwq3")
+autoplay = "default"
+frame_progress = 0.485099

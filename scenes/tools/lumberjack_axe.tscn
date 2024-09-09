@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1oxtaykm1qxs"]
+
+[ext_resource type="PackedScene" uid="uid://x2bj4r77d5mq" path="res://scenes/tool.tscn" id="1_vxxif"]
+[ext_resource type="Resource" uid="uid://cf08p7lotiijk" path="res://resources/tools/axe/axe_tool.tres" id="2_crdgj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv7uh"]
+size = Vector2(6, 6.5)
+
+[node name="Tool" instance=ExtResource("1_vxxif")]
+TOOL_RESOURCE = ExtResource("2_crdgj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+position = Vector2(15, 8.75)
+scale = Vector2(5, 5)
+shape = SubResource("RectangleShape2D_vv7uh")
+disabled = true
+debug_color = Color(1.49205e-06, 0.639837, 0.358861, 0.42)
