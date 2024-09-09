@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bw1exsjdhgu1q"]
+[gd_scene load_steps=43 format=3 uid="uid://bw1exsjdhgu1q"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_gif6u"]
 [ext_resource type="Texture2D" uid="uid://qlo0k2w774hq" path="res://assets/Sunnyside World/Characters/Human/IDLE/base_idle_strip9.png" id="1_ngy66"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bj3jplgtynb" path="res://assets/Sunnyside World/Characters/Human/RUN/base_run_strip8.png" id="2_mse4e"]
 [ext_resource type="Texture2D" uid="uid://byb21ijheurg6" path="res://assets/Sunnyside World/Characters/Human/WALKING/base_walk_strip8.png" id="3_uymua"]
 [ext_resource type="Texture2D" uid="uid://mbgn6ofykyvm" path="res://assets/Pixel Weapons/Axe.png" id="5_pt4nw"]
-[ext_resource type="Texture2D" uid="uid://pjyouy2itdan" path="res://assets/Sunnyside World/UI/arrow_up.png" id="7_l4mvm"]
 [ext_resource type="Texture2D" uid="uid://3bjw6cuc1p4t" path="res://assets/Sunnyside World/UI/cursor_03.png" id="7_tyyev"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xq4pq"]
@@ -546,19 +545,13 @@ texture = ExtResource("5_pt4nw")
 
 [node name="HandSprite" type="Sprite2D" parent="Hand"]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Hand"]
+[node name="Debug" type="StaticBody2D" parent="Hand"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Debug"]
 shape = SubResource("CircleShape2D_uby41")
 debug_color = Color(0.984836, 0, 0.339709, 0.42)
-
-[node name="Sprite2D" type="Sprite2D" parent="Hand"]
-z_index = 5
-rotation = 1.5708
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("7_l4mvm")
 
 [node name="MouseCursor" type="Marker2D" parent="."]
 

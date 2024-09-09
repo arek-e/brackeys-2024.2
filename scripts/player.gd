@@ -121,7 +121,7 @@ func attack():
 
 	is_attacking = true
 
-	# Play the appropriate attack animation based on the mouse direction
+	# Play the appropria.te attack animation based on the mouse direction
 	match mouse_direction:
 		"up":
 			animation_player.play("swing_attack_up")

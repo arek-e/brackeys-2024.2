@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://x2bj4r77d5mq"]
+
+[ext_resource type="Script" path="res://tool.gd" id="1_p5sky"]
+[ext_resource type="Resource" uid="uid://cf08p7lotiijk" path="res://resources/tools/axe/axe_tool.tres" id="2_bnxjj"]
+
+[node name="Tool" type="Node2D"]
+script = ExtResource("1_p5sky")
+tool = ExtResource("2_bnxjj")
+
+[node name="ToolSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true

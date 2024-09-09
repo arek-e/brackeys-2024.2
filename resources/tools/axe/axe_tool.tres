@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="ToolResource" load_steps=7 format=3 uid="uid://cf08p7lotiijk"]
+[gd_resource type="Resource" script_class="ToolResource" load_steps=8 format=3 uid="uid://cf08p7lotiijk"]
 
 [ext_resource type="Script" path="res://scripts/tool_resource.gd" id="1_vxjof"]
 [ext_resource type="Script" path="res://scripts/tool_sprite_attributes.gd" id="2_447qf"]
+[ext_resource type="Texture2D" uid="uid://mbgn6ofykyvm" path="res://assets/Pixel Weapons/Axe.png" id="2_rwv38"]
 [ext_resource type="Resource" uid="uid://tk6vpk8hwpn5" path="res://resources/tools/axe/directions/axeNE.tres" id="3_gabme"]
 [ext_resource type="Resource" uid="uid://dt67t2bd6xpgf" path="res://resources/tools/axe/directions/axeSE.tres" id="4_m5cs6"]
 [ext_resource type="Resource" uid="uid://b24ti455afiec" path="res://resources/tools/axe/directions/axeSW.tres" id="5_1bndm"]
@@ -9,7 +10,11 @@
 
 [resource]
 script = ExtResource("1_vxjof")
-name = ""
+name = "Lumberjack axe"
 description = ""
-cost = 0
+damage_amount = 10.0
+attack_type = 0
+sprite = ExtResource("2_rwv38")
+sprite_scale = Vector2(0.2, 0.2)
+sprite_position = Vector2(5, 0)
 tool_sprite_attributes = Array[ExtResource("2_447qf")]([ExtResource("4_m5cs6"), ExtResource("5_1bndm"), ExtResource("6_64bc7"), ExtResource("3_gabme")])
