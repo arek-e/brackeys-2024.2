@@ -134,9 +134,8 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="Animation" id="Animation_0t4lf"]
-resource_name = "idle"
-step = 0.05
+[sub_resource type="Animation" id="Animation_qnxku"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -156,33 +155,6 @@ tracks/1/path = NodePath(".:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7]
-}
-
-[sub_resource type="Animation" id="Animation_qnxku"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"hit"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -191,6 +163,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_5fgdv"]
 resource_name = "hit"
+length = 0.350005
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -217,6 +190,36 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 6, 7]
 }
 
+[sub_resource type="Animation" id="Animation_0t4lf"]
+resource_name = "idle"
+length = 0.666675
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o4m76"]
 _data = {
 "RESET": SubResource("Animation_qnxku"),
@@ -240,13 +243,12 @@ advance_condition = &"is_hit"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rvq1d"]
 switch_mode = 2
 advance_mode = 2
-advance_condition = &"idle"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_uovlm"]
 states/hit/node = SubResource("AnimationNodeAnimation_uhgfp")
 states/hit/position = Vector2(455, 100)
 states/idle/node = SubResource("AnimationNodeAnimation_oejba")
-states/idle/position = Vector2(325, 100)
+states/idle/position = Vector2(326, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_bghn6"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_cqeuk"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_rvq1d")]
 
 [node name="TargetDummy" type="CharacterBody2D"]
@@ -266,18 +268,7 @@ shape = SubResource("CapsuleShape2D_af7fw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_miwq3")
-animation = &"hit"
 frame = 1
-
-[node name="HitParticles" type="GPUParticles2D" parent="."]
-emitting = false
-amount = 6
-sub_emitter = NodePath(".")
-lifetime = 0.3
-one_shot = true
-preprocess = 0.03
-explosiveness = 0.85
-randomness = 0.59
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimatedSprite2D")
@@ -289,7 +280,7 @@ libraries = {
 root_node = NodePath("../AnimatedSprite2D")
 tree_root = SubResource("AnimationNodeStateMachine_uovlm")
 anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/idle = false
 parameters/conditions/is_hit = false
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="HealthComponent" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="AnimationTree" to="HitboxComponent" method="_on_animation_tree_animation_finished"]
