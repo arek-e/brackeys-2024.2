@@ -1,9 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://bw1exsjdhgu1q"]
+[gd_scene load_steps=44 format=3 uid="uid://bw1exsjdhgu1q"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_gif6u"]
 [ext_resource type="Texture2D" uid="uid://qlo0k2w774hq" path="res://assets/Sunnyside World/Characters/Human/IDLE/base_idle_strip9.png" id="1_ngy66"]
+[ext_resource type="Resource" uid="uid://cf08p7lotiijk" path="res://resources/tools/axe/axe_tool.tres" id="2_h2x85"]
 [ext_resource type="Texture2D" uid="uid://bj3jplgtynb" path="res://assets/Sunnyside World/Characters/Human/RUN/base_run_strip8.png" id="2_mse4e"]
 [ext_resource type="Texture2D" uid="uid://byb21ijheurg6" path="res://assets/Sunnyside World/Characters/Human/WALKING/base_walk_strip8.png" id="3_uymua"]
+[ext_resource type="PackedScene" uid="uid://d1oxtaykm1qxs" path="res://scenes/tools/lumberjack_axe.tscn" id="7_4ecpq"]
+[ext_resource type="Texture2D" uid="uid://3bjw6cuc1p4t" path="res://assets/Sunnyside World/UI/cursor_03.png" id="7_tyyev"]
+[ext_resource type="PackedScene" uid="uid://cphm6iea156mr" path="res://scenes/attack_component.tscn" id="8_x53gg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xq4pq"]
 atlas = ExtResource("1_ngy66")
@@ -202,16 +206,297 @@ animations = [{
 radius = 5.0
 height = 16.0
 
-[sub_resource type="Animation" id="Animation_2ma7r"]
-resource_name = "idle"
+[sub_resource type="CircleShape2D" id="CircleShape2D_uby41"]
+radius = 2.0
+
+[sub_resource type="Animation" id="Animation_dnxa0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/Tool:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sq670"]
+resource_name = "sprinting"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(3, 4), Vector2(5, 2), Vector2(3, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.349066, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_yo6ui"]
+resource_name = "swing_attack_down"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 7), Vector2(4, 7), Vector2(4, 7), Vector2(0, 14), Vector2(-4, 7), Vector2(-4, 7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.174533, -0.349066, 1.5708, 2.35619, 2.70526]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/Tool:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/AttackComponent")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.14, 0.48),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"set_collision_enabled"
+}, {
+"args": [false],
+"method": &"set_collision_enabled"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_1pyei"]
+resource_name = "swing_attack_left"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-4, -7), Vector2(-4, -7), Vector2(-4, -7), Vector2(-10, 0), Vector2(-4, 7), Vector2(-4, 7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-2.35619, -2.18166, -2.00713, -3.14159, -3.92699, -4.10152]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/Tool:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/AttackComponent")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.16, 0.48),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"set_collision_enabled"
+}, {
+"args": [false],
+"method": &"set_collision_enabled"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_td3yj"]
+resource_name = "swing_attack_right"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4, -7), Vector2(4, -7), Vector2(4, -7), Vector2(10, 0), Vector2(4, 7), Vector2(4, 7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.5708, -1.74533, -1.91986, 0.0, 0.785398, 1.13446]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/Tool:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/AttackComponent")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.48),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"set_collision_enabled"
+}, {
+"args": [false],
+"method": &"set_collision_enabled"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_s4v1u"]
+resource_name = "swing_attack_up"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.16, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-4, -7), Vector2(-4, -7), Vector2(-4, -7), Vector2(0, -14), Vector2(4, -7), Vector2(4, -7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.25, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [3.14159, 2.96706, 4.71239, 5.49779, 5.84685]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/Tool:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/AttackComponent")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.14, 0.48),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"set_collision_enabled"
+}, {
+"args": [false],
+"method": &"set_collision_enabled"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r4yjx"]
 _data = {
-"idle": SubResource("Animation_2ma7r")
+"RESET": SubResource("Animation_dnxa0"),
+"sprinting": SubResource("Animation_sq670"),
+"swing_attack_down": SubResource("Animation_yo6ui"),
+"swing_attack_left": SubResource("Animation_1pyei"),
+"swing_attack_right": SubResource("Animation_td3yj"),
+"swing_attack_up": SubResource("Animation_s4v1u")
 }
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_gif6u")
+TOOL_RESOURCE = ExtResource("2_h2x85")
 SPEED = null
 SPRINT_SPEED = null
 ACCELERATION = null
@@ -219,7 +504,7 @@ BREAK_FORCE = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_y15en")
-animation = &"idle"
+animation = &"walk"
 autoplay = "idle"
 frame_progress = 0.209685
 
@@ -227,7 +512,35 @@ frame_progress = 0.209685
 position = Vector2(1, -1)
 shape = SubResource("CapsuleShape2D_ypc0u")
 
+[node name="Hand" type="Node2D" parent="."]
+position = Vector2(4, -7)
+rotation = 5.76928
+
+[node name="HandSprite" type="Sprite2D" parent="Hand"]
+
+[node name="Debug" type="StaticBody2D" parent="Hand"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Debug"]
+shape = SubResource("CircleShape2D_uby41")
+debug_color = Color(0.984836, 0, 0.339709, 0.42)
+
+[node name="Tool" parent="Hand" instance=ExtResource("7_4ecpq")]
+
+[node name="AttackComponent" parent="Hand" instance=ExtResource("8_x53gg")]
+position = Vector2(-8.06215, 0.0422492)
+rotation = -1.05689
+
+[node name="MouseCursor" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="MouseCursor"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_tyyev")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_r4yjx")
 }
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

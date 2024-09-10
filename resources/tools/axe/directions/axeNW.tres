@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ToolSpriteAttributes" load_steps=2 format=3 uid="uid://c20qlx65cb664"]
+
+[ext_resource type="Script" path="res://scripts/tool_sprite_attributes.gd" id="1_wne3c"]
+
+[resource]
+script = ExtResource("1_wne3c")
+rotation = -135.0
+flip_h = false
+flip_v = false
