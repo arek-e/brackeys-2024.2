@@ -204,7 +204,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ypc0u"]
 radius = 5.0
-height = 16.0
+height = 10.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uby41"]
 radius = 2.0
@@ -495,25 +495,24 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 1
 script = ExtResource("1_gif6u")
 TOOL_RESOURCE = ExtResource("2_h2x85")
-SPEED = null
-SPRINT_SPEED = null
-ACCELERATION = null
-BREAK_FORCE = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -7)
 sprite_frames = SubResource("SpriteFrames_y15en")
 animation = &"walk"
 autoplay = "idle"
 frame_progress = 0.209685
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -1)
+position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_ypc0u")
 
 [node name="Hand" type="Node2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(-4, -7)
+rotation = 3.14159
 
 [node name="HandSprite" type="Sprite2D" parent="Hand"]
 

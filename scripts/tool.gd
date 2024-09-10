@@ -26,5 +26,4 @@ func load_tool() -> void:
 		tool_sprite.texture = TOOL_RESOURCE.sprite
 		tool_sprite.scale = TOOL_RESOURCE.sprite_scale
 		tool_sprite.position = TOOL_RESOURCE.sprite_position
-		print_debug(TOOL_RESOURCE.damage_amount)
 		attack_damage = TOOL_RESOURCE.damage_amount

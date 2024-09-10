@@ -1,7 +1,8 @@
-[gd_scene load_steps=508 format=3 uid="uid://rg3ru5fiiff8"]
+[gd_scene load_steps=509 format=3 uid="uid://rg3ru5fiiff8"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_s0i5r"]
 [ext_resource type="Texture2D" uid="uid://bjwak8rkk661n" path="res://assets/rotating-earth-spritesheet.png" id="2_a6irj"]
+[ext_resource type="Texture2D" uid="uid://ddekqeerodd0l" path="res://assets/Space Background.png" id="2_ni84w"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iil53"]
 
@@ -3538,9 +3539,9 @@ tracks/0/path = NodePath(".:offset:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 2, 0),
-"points": PackedFloat32Array(0, 0, 0, 0.1, 3.57143, 44.5238, -0.132778, -8.34602, 0.5, 31.4286, 210, -0.3, -162.619, 0, 0),
-"times": PackedFloat32Array(0, 0.4, 2)
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.5, 100, 210, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 2)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -3550,8 +3551,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, 0, 0, 0.8, 0.345238, 3, -0.2, -1.14796, 0, 0),
-"times": PackedFloat32Array(0.6, 2)
+"points": PackedFloat32Array(1, 0, 0, 1.5, 0.1, 3, 0, 0, 0, 0),
+"times": PackedFloat32Array(0.2, 2)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -3561,8 +3562,8 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, 0, 0, 0.8, 0.331633, 3, -0.2, -1.15476, 0, 0),
-"times": PackedFloat32Array(0.6, 2)
+"points": PackedFloat32Array(1, 0, 0, 1.5, 0.1, 3, 0, 0, 0, 0),
+"times": PackedFloat32Array(0.2, 2)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qt4dn"]
@@ -3644,6 +3645,7 @@ text = "Game Title"
 vertical_alignment = 1
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -3667,19 +3669,19 @@ offset_right = 13.35
 offset_bottom = 78.232
 theme_override_font_sizes/normal_font_size = 20
 
-[node name="ColorRect" type="ColorRect" parent="."]
-modulate = Color(0.383767, 0.349159, 0.197159, 1)
-z_index = -2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_right = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+follow_viewport_enabled = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Space" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Space"]
+position = Vector2(667.222, 346)
+texture = ExtResource("2_ni84w")
+
+[node name="Planet" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ParallaxBackground/Planet"]
 position = Vector2(778, 314)
 scale = Vector2(1.68403, 1.68403)
 sprite_frames = SubResource("SpriteFrames_5ryip")
