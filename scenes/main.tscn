@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b866g0228k4gg"]
+[gd_scene load_steps=4 format=3 uid="uid://b866g0228k4gg"]
 
 [ext_resource type="PackedScene" uid="uid://bw1exsjdhgu1q" path="res://scenes/player.tscn" id="1_43mqe"]
 [ext_resource type="PackedScene" uid="uid://t6lf8gpo5apj" path="res://scenes/target_dummy.tscn" id="2_5c4ti"]
-[ext_resource type="PackedScene" uid="uid://bqlx0n4p1klpy" path="res://scenes/ui.tscn" id="2_s88j6"]
+[ext_resource type="PackedScene" path="res://scenes/ui.tscn" id="2_s88j6"]
 
 [node name="Main" type="Node2D"]
 
@@ -12,6 +12,18 @@
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
-[node name="TargetDummy" parent="." instance=ExtResource("2_5c4ti")]
-position = Vector2(69, 0)
 [node name="UI" parent="." instance=ExtResource("2_s88j6")]
+
+[node name="Targets" type="Node" parent="."]
+
+[node name="TargetDummy" parent="Targets" instance=ExtResource("2_5c4ti")]
+position = Vector2(69, 0)
+
+[node name="TargetDummy2" parent="Targets" instance=ExtResource("2_5c4ti")]
+position = Vector2(-67, -2)
+
+[node name="TargetDummy3" parent="Targets" instance=ExtResource("2_5c4ti")]
+position = Vector2(-1, 45)
+
+[node name="TargetDummy4" parent="Targets" instance=ExtResource("2_5c4ti")]
+position = Vector2(0, -54)
