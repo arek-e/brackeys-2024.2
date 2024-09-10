@@ -1,0 +1,115 @@
+[gd_scene load_steps=3 format=3 uid="uid://cep1sl6cikafr"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_s0i5r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iil53"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s0i5r")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = -126.0
+offset_right = 136.0
+offset_bottom = -25.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_iil53")
+text = "Start"
+alignment = 0
+
+[node name="CreditsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_iil53")
+text = "Credits
+"
+alignment = 0
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../StartButton")
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_iil53")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_iil53")
+text = "Quit"
+alignment = 0
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -4.0
+offset_right = 653.0
+offset_bottom = 130.0
+theme_override_font_sizes/font_size = 64
+text = "Game Title"
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.735
+offset_left = -4.0
+offset_top = 115.0
+offset_right = -6.0
+offset_bottom = 16.2
+scale = Vector2(1.2, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.002
+anchor_top = 0.244
+anchor_right = 0.97
+anchor_bottom = 0.692
+offset_left = -1.29
+offset_top = -61.976
+offset_right = 13.35
+offset_bottom = 78.232
+theme_override_font_sizes/normal_font_size = 20
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.383767, 0.349159, 0.197159, 1)
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CreditsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
