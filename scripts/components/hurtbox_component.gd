@@ -10,12 +10,13 @@ func _ready() -> void:
 
 
 func on_area_entered(area: Area2D):
-	print(tool.attack_damage)
 	if area is HitboxComponent:
 		var attack := Attack.new()
 
 		attack.damage = tool.attack_damage
+		attack.knockback = 150.0
 
 		area.damage(attack)
+		area.knockback(tool.global_position, attack)
 
 		hit_enemy.emit()
