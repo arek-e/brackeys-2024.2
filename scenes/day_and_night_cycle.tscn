@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://di4q3ou0yj5ug"]
+
+[ext_resource type="Script" path="res://scripts/day_and_night/day_and_night_cycle.gd" id="1_u3pp5"]
+[ext_resource type="Script" path="res://scripts/day_and_night/day_night_cycle.gd" id="2_e7crf"]
+[ext_resource type="Texture2D" uid="uid://bovq1r7ova47p" path="res://resources/daynightcycle-gradient-texture.tres" id="3_nrvtl"]
+[ext_resource type="Script" path="res://scripts/day_and_night/day_and_night_ui.gd" id="4_60jds"]
+
+[node name="DayAndNightCycle" type="Node2D"]
+script = ExtResource("1_u3pp5")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+script = ExtResource("2_e7crf")
+gradient_texture = ExtResource("3_nrvtl")
+INGAME_SPEED = 120.0
+INITIAL_HOUR = 11
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DayAndNightCycleUI" type="Control" parent="CanvasLayer"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("4_60jds")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DayAndNightCycleUI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -122.0
+offset_bottom = 82.0
+grow_horizontal = 0
+
+[node name="CenterContainerDay" type="CenterContainer" parent="CanvasLayer/DayAndNightCycleUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="DayLabel" type="Label" parent="CanvasLayer/DayAndNightCycleUI/VBoxContainer/CenterContainerDay"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Day 13"
+metadata/_edit_lock_ = true
+
+[node name="CenterContainerTime" type="CenterContainer" parent="CanvasLayer/DayAndNightCycleUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/DayAndNightCycleUI/VBoxContainer/CenterContainerTime"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "12:00 am"
+metadata/_edit_lock_ = true
