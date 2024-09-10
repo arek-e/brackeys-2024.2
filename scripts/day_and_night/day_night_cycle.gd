@@ -1,4 +1,4 @@
-extends CanvasModulate
+class_name DayAndNightCycle extends CanvasModulate
 
 const MINUTES_PER_DAY = 1440
 const MINUTES_PER_HOUR = 60

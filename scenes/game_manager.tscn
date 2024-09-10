@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bflswh7isyphf"]
+
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_y0vmm"]
+[ext_resource type="PackedScene" uid="uid://t6lf8gpo5apj" path="res://scenes/target_dummy.tscn" id="3_n0ok3"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_y0vmm")
+enemies = Array[PackedScene]([ExtResource("3_n0ok3")])
