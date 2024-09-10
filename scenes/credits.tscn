@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsod0gf3qs7og"]
+[gd_scene load_steps=9 format=3 uid="uid://bcah3culmvpbo"]
 
 [ext_resource type="Script" path="res://scripts/credits.gd" id="1_11cjh"]
 [ext_resource type="Texture2D" uid="uid://bswhrkypy0q1l" path="res://assets/creator_profiles/git_anton.png" id="2_gjgl1"]
