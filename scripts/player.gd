@@ -28,6 +28,14 @@ func get_input() -> Vector2:
 	input.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	return input.normalized()
 
+func _ready() -> void:
+	NavigationManager.on_trigger_player_spawn.connect(_on_spawn)
+
+
+func _on_spawn(position: Vector2, direction: int):
+	global_position = position
+	await TransitionScreen.on_animation_finished
+
 
 func _process(delta: float) -> void:
 	var player_input: Vector2 = get_input()
@@ -102,7 +110,7 @@ func adjust_tool_z_index(nearest_angle_index: float) -> void:
 	# Set the z_index to a lower value (behind player) if angle is in the north range (315° to 45°)
 	var direction_string = get_direction_from_index(nearest_angle_index)
 	if  direction_string == "nw" or direction_string == "ne":
-		hand.get_node("Tool").get_node("ToolSprite").z_index = -1  # Behind the player
+		hand.get_node("Tool").get_node("ToolSprite").z_index = 0  # Behind the player
 	else:
 		hand.get_node("Tool").get_node("ToolSprite").z_index = 1  # In front of the player		
 

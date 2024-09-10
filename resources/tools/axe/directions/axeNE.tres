@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ToolSpriteAttributes" load_steps=2 format=3 uid="uid://tk6vpk8hwpn5"]
 
-[ext_resource type="Script" path="res://scripts/tool_sprite_attributes.gd" id="1_cck24"]
+[ext_resource type="Script" path="res://scripts/tools/tool_sprite_attributes.gd" id="1_cck24"]
 
 [resource]
 script = ExtResource("1_cck24")
