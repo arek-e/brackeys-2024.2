@@ -212,10 +212,6 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_gif6u")
-SPEED = null
-SPRINT_SPEED = null
-ACCELERATION = null
-BREAK_FORCE = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_y15en")
